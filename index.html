@@ -1,0 +1,542 @@
+<html>
+<head>
+
+  <title>Best Pratices</title>
+
+  <meta charset="utf-8" />
+  <meta name="keywords" content="remark,remarkjs,markdown,slideshow,presentation" />
+  <meta name="description" content="A simple, in-browser, markdown-driven slideshow tool." />
+
+  <style>
+  /* ======================================================
+   * Font Import
+   * ====================================================== */
+
+  @import url('https://fonts.googleapis.com/css?family=Roboto:300, 300i, 500');
+
+
+  /* ======================================================
+   * Remark Styles
+   * ====================================================== */
+
+  .remark-container {
+    background-color: #f2f2f2;
+    font: 300 16px/1.4 'Roboto', 'Helvetica Neue', Verdana, Arial, Helvetica, sans-serif;
+    color: #262626;
+  }
+
+  .remark-slide-scaler {
+    -webkit-box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.05);
+  }
+
+  .remark-slide-content {
+    padding: 50px 80px;
+  }
+
+  .remark-slide-content h1,
+  .remark-slide-content h2,
+  .remark-slide-content h3,
+  .remark-slide-content h4,
+  .remark-slide-content h5,
+  .remark-slide-content h6 {
+    margin: 0;
+    font-weight: 300;
+  }
+
+  .remark-slide-content h1 {
+    margin-bottom: 50px;
+    border-bottom: 1px solid #c7c7c7;
+    padding-bottom: 16px;
+    font-size: 42px;
+  }
+
+  .remark-slide-content h2 {
+    margin-bottom: 40px;
+    font-size: 34px;
+  }
+
+  .remark-slide-content h3 {
+    margin-bottom: 40px;
+    font-size: 28px;
+  }
+
+  .remark-slide-content h6 {
+    margin: 0;
+    font-size: 16px;
+    color: #6e6e6e;
+    position: absolute;
+    bottom: 24px;
+  }
+
+  .remark-slide-number {
+    font-size: 16px;
+    color: #c7c7c7;
+    opacity: 1;
+    bottom: 24px;
+    right: 80px;
+  }
+
+
+  /* ======================================================
+   * Element Styles
+   * ====================================================== */
+
+  strong,
+  b {
+    font-weight: 500;
+  }
+
+  a {
+    text-decoration: none;
+    color: #1771A6;
+  }
+
+  p {
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+
+  blockquote {
+    margin: 0;
+    border-left: 5px solid #c7c7c7;
+    padding: 0;
+    padding-left: 35px;
+    color: #6e6e6e;
+  }
+
+  blockquote > p {
+    margin: 0;
+  }
+
+  ul,
+  ol {
+    margin: 0;
+    padding-left: 24px;
+  }
+
+  ul > li + li,
+  ol > li + li {
+    margin-top: 6px;
+  }
+
+  code {
+    background-color: #f2f2f2;
+    border-radius: 3px;
+    padding: 2px 5px;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    vertical-align: middle;
+  }
+  </style>
+
+</head>
+<body>
+
+  <textarea id="source">
+    # What are best practices?
+
+    > A best practice is a technique or methodology that, through experience and research, has proven to reliably lead to a desired result. A commitment to using the best practices in any field is a commitment to using all the knowledge and technology at one's disposal to ensure success.[^1]  
+
+    ###### [^1]: from https://searchsoftwarequality.techtarget.com/definition/best-practice
+
+    ---
+
+    ## Where do best practices come from?
+
+    * Design patterns
+    * White papers
+    * Tribal knowledge
+    * Blogs
+    * Books written by people, some who might even be smart
+
+    ---
+
+    ## The Easy Stuff
+
+    * Code shape
+    * Style guide and linters
+    * How to `if`
+    * Smarter looping
+
+    ---
+
+    ## The Hard (Fun) Stuff
+
+    * Project layout
+    * Fail fast, big, and informed
+    * 3rd-party frameworks and libraries
+    * When to build it yourself or pull it off the shelf
+    * _Date your frameworks — don't marry them_
+    * Use pure functions
+    * Single source of truth
+    * Keep it simple
+    * One flow
+
+    ---
+
+    # Code Shape
+
+    ![bad shape](https://i.redditmedia.com/P1B98VFlL6po1QqQRepzJc0O7npbCjUAZTGPh4Leh3A.png?s=901877276006a3dde801344a00cebc5c)
+
+    ---
+
+    ## Have a style guide and a linter
+
+    * Code that is well formatted will always be easier to understand
+    * Keeps you from making stupid mistakes
+    * [Lint and style rules](https://bitbucket.org/sofiinc/eslint-config-sofi/src/master/index.js)
+
+    ---
+
+    ## Tabs vs. Spaces
+
+    * The Holy War
+    * Choose one and use it for all files in that project
+
+    ---
+
+    # `If`, the core of logic
+
+    ![diffs](https://johnmann.org/blog/wp-content/uploads/2016/08/technology-1283624_960_720.jpg)
+
+    ---
+
+    ## The Basics
+
+    * Less is more
+    * The fewer `if` statements you have in a function, the easier it is to follow what it does
+    * Lots of  `if`  statements is code smell and means the function should probably be broken up
+    * Fewer conditionals means faster code
+    * Still have them, just don't waste them
+    * Always use `{}` — it just makes life easier
+    * Automatic semicolon insertion is a thing
+    * Use `===` and `!==`
+
+    ---
+
+    ### Don't have empty conditionals
+
+    ``` javascript
+    // bad
+    if (isBasic) {
+    } else {
+       //code here
+    }
+
+    // good
+    if (!isBasic) {
+      //code here
+    }
+    ```
+
+    ---
+
+    ### Don't assign in an `if else` for only one variable
+
+    ``` javascript
+    // Bad
+    let c;
+    if (isBasic) {
+       c = 'basic';
+    } else {
+       c = 'extra';
+    }
+
+    // Better
+    let c = 'basic';
+    if(!isBasic) {
+       c = 'extra';
+    }
+
+    // Best
+    const c = isBasic ? 'basic' : 'extra';
+    ```
+
+    ---
+
+    ### Don't do this
+
+    ``` javascript
+    // Bad
+    if (data.birthDate) data.birthDate = moment(data.birthDate);
+
+    // Better
+    if (data.birthDate)
+       data.birthDate = moment(data.birthDate);
+
+    // Best
+    if (data.birthDate) {
+       data.birthDate = moment(data.birthDate);
+    }
+    ```
+
+    ---
+
+    ### Don't explicitly check for `null` or `undefined`
+
+    ``` javascript
+    if (c === null || c === undefined) {
+       // ...
+    }
+
+    if (!c) {
+       // ...
+    }
+    ```
+
+    ---
+
+    ### Don't return `true` and `false` from a conditional
+
+    ``` javascript
+    // Bad
+    if (x === y) {
+       return true;
+    } else {
+       return false;
+    }
+
+    // Better
+    return x === y ? true : false;
+
+    // Best
+    return x === y;
+    ```
+
+    ---
+
+    ### Don't use an `else` if your `if` statement returns
+
+    ``` javascript
+    // Bad
+    if (isBasic) {
+       return getBoots('ugg');
+    } else {
+       let wantedFootware = getRandomBootsBrand();
+       return getBoots(wantedFootware);
+    }
+
+    // Better
+    if (isBasic) {
+       return getBoots('ugg');
+    }
+
+    let wantedFootware = getRandomBootsBrand();
+    return getBoots(wantedFootware);
+    ```
+
+    ---
+
+    ### Don't use the never-ending `if`
+
+    ``` javascript
+    // Bad
+    if (
+       ext === '.jpg' ||
+       ext === '.png' ||
+       ext === '.gif' ||
+       ext === '.jpeg') {
+       // ...
+    }
+
+    // Better
+    let wantedExt = ['jpg', '.png', '.gif', '.jpeg'];
+    if (wantedExt.find(i => i === ext) {
+       // ...
+    }
+
+    // Best
+    if (isAllowedFormat(ext)) {
+       // ...
+    }
+    ```
+
+    ---
+
+    # Looping
+
+    * Prefer `map`, `reduce`, `forEach` over traditional loops
+    * Off-by-one errors cause more hard-to-find problems then almost any other problem
+    * There was once a lot of discussion about how to `var i` for loops; now, just use `let` — it solves the problem
+    
+    ``` javascript
+    for (let i = 0; i < 5; i++) { 
+      console.log(i); 
+    }
+    ```
+
+    ---
+
+    # The Hard Stuff — I mean fun stuff
+
+    * Project layout
+    * Fail fast, big, and informed
+    * 3rd-party frameworks and libraries
+    * When to build it yourself or pull it off the shelf
+    * _Date your frameworks — don't marry them_
+    * Use pure functions
+    * Single source of truth
+    * Keep it simple
+    * One flow
+
+    ---
+
+    ## Project Layout
+
+    What is the best way to lay a project out?
+
+    There isn't a best way. There is the way that works for the group of people working on that project. I need to do a couple things, though:
+
+    * Follow the commonly held patterns for that language and framework
+    * This allows for new developers to be easily onboarded
+    * Tools will usually accommodate what you are doing, rather then needing custom work
+    * Name files so they match the identifier used in code for them
+    * Keep it consistent
+    * Make sure a person could easily reason out why the files are located there
+
+    ---
+
+    ## Fail fast, big, and informed
+
+    * Fail as quickly as possible
+    * If you know you can't continue, bail out in a clean way
+    * Fail big
+    * There is nothing worse than a break in the system where you are waiting for a thing to happen, but it never will because of an error that you were not notified for
+    * When you fail, log the failure so you know what failed and can fix it
+    * In dev, expose the error so it is easier to fix
+
+    ---
+
+    ## 3rd-party frameworks and libraries are amazing
+
+    * They allow you to build more in less time
+    * Create things far beyond your skill
+    * Simplify tedious code
+    * You also get bug fixes for free
+    * New features, as well (**this can be both good and bad** — feature creep)
+    * Usually has better documentation
+
+    ---
+
+    ## When should you use a library vs. when you should build your own
+
+    Some questions to ask:
+
+    * Is it core to what we do?
+    * Can we do a better job in house?
+    * Even if we can do better, is the ROI enough to justify the work?
+
+    ---
+
+    ## Date your frameworks
+
+    When using a 3rd-party framework, do your best to abstract it out of your code base.
+
+    * Use a wrapper function/lib to allow for easy replacement of the library
+    * Keep app-specific logic out of the library lifecycle functions when possible
+    * Actors call function in a service rather then just having the code inline
+    * This is really hard when using UI libraries
+
+    ``` javascript 
+    export const getAccount = accountId => dispatch => dispatch({
+      type: WEALTH_ACCOUNT_GET,
+      payload: new Promise(async (resolve, reject) => {
+        try {
+          const accountAsync = accountService.getAccount(accountId);
+          const banners = accountService.getBanners(accountId);
+          const performance = accountService.getPerformance(accountId, -1);
+          const holdings = accountService.getHoldings(accountId);
+          const documents = accountService.getAccountStatementDocuments(accountId);
+          const primary = accountService.getPrimary(accountId);
+          // more code here
+    ```
+
+    ---
+    
+    * this would be better
+    ``` javascript 
+    export const getAccount = accountId => dispatch => dispatch({
+      type: WEALTH_ACCOUNT_GET,
+      payload: new Promise(async (resolve, reject) => {
+        try {
+          resolve( await accountService.getAccountDetailsAgg());
+        } catch (e) {
+          reject(e);
+        }
+    ```
+        
+    
+
+    ---
+
+    ## Pure functions rock
+
+    > A pure function is defined as a method which, given the same input, will always return the same output and depend on no external mutable state. Pure functions offer a variety of benefits such as no side effects, ease of testing, ease of debugging, etc.[^2]
+
+    The majority of the functions in a project should be pure. This simplifies maintenance and makes testing easy.
+
+    ###### [^2]: from https://x-team.com/blog/good-programming-practices-blog-post-wip/
+
+    ---
+
+    ## Single source of truth
+
+    If you are going to modify data for use in the code base, do it in one place and have all places that use it reference it from there.
+
+    ---
+
+    ## Keep the logic out of the view
+
+    * The less logic you have here, the easier it is to figure out what is going on
+    * Programatically testing views is much harder than testing in the JavaScript area
+
+    ---
+
+    ## Keep to a single code flow as much as possible
+
+    Take this code flow:
+
+    ``` javascript
+    if (isBasic) {
+       return getBoots('ugg');
+    }
+    let wantedFootware = getRandomeBootsBrand();
+    return getBoots(wantedFootware);
+    ```
+
+    It's one of the examples from earlier. It still has two code branches that can get out of sync with each other.
+
+    ---
+
+    ### It can also be written as:
+
+    ``` javascript
+    const wantedFootware = isBasic ? 'ugg' : getRandomeBootsBrand();
+    return getBoots(wantedFootware);
+    ```
+
+    ---
+
+    ### Or if you really like to keep your lines down:
+
+    ``` javascript
+    return getBoots(isBasic ? 'ugg' : getRandomeBootsBrand());
+    ```
+
+    ---
+
+    ## Questions
+  </textarea>
+
+  <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+  <script>
+  var slideshow = remark.create();
+  </script>
+
+</body>
+</html>
